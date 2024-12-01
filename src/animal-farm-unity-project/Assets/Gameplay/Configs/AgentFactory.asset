@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b257e209bb074d8d95b4820302262184, type: 3}
   m_Name: AgentFactory
   m_EditorClassIdentifier: 
-  agentPrefab: {fileID: 0}
+  agentPrefab: {fileID: 4153662061406570307, guid: 4a36e217248272147826004d3e4d753a, type: 3}
   agentSettings:
     idleSpeed: 2
     followSpeed: 4
