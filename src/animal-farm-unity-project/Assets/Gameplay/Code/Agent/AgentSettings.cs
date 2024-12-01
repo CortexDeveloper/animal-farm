@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Gameplay.Character
+namespace Gameplay.Agent
 {
     [Serializable]
-    public class CharacterMovementSettings
+    public class AgentSettings
     {
         public float moveSpeed;
     }

@@ -5,17 +5,16 @@ namespace Gameplay.Character
     public class CharacterMovement : MonoBehaviour
     {
         private const float MinimumDistanceToTarget = 0.1f;
-        
-        public CharacterMovementSettings movementSettings;
-        
-        private Vector3 _targetPosition;
-        private bool _isMoving;
+
+        [SerializeField] private float moveSpeed; 
+        [SerializeField] private Vector3 targetPosition;
+        [SerializeField] private bool isMoving;
         
         private void Update()
         {
             ListenInput();
 
-            if (_isMoving) 
+            if (isMoving) 
                 MoveToTarget();
         }
 
@@ -24,17 +23,17 @@ namespace Gameplay.Character
             if (!Input.GetMouseButtonDown(0))
                 return;
             
-            _targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            _targetPosition.z = 0;
-            _isMoving = true;
+            targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            targetPosition.z = 0;
+            isMoving = true;
         }
 
         private void MoveToTarget()
         {
-            transform.position = Vector3.MoveTowards(transform.position, _targetPosition, movementSettings.moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
-            if (Vector3.Distance(transform.position, _targetPosition) < MinimumDistanceToTarget) 
-                _isMoving = false;
+            if (Vector3.Distance(transform.position, targetPosition) < MinimumDistanceToTarget) 
+                isMoving = false;
         }
     }
 }
