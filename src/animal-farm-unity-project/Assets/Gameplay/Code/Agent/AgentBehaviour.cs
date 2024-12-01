@@ -1,5 +1,4 @@
-﻿using System;
-using Gameplay.Character;
+﻿using Gameplay.Character;
 using Gameplay.Generic;
 using Gameplay.Level;
 using UnityEngine;
@@ -38,6 +37,12 @@ namespace Gameplay.Agent
         public void ChangeStateTo(AgentState state) => 
             State = state;
 
+        public void Deactivate()
+        {
+            ChangeStateTo(AgentState.Idle);
+            gameObject.SetActive(false);
+        }
+        
         private void Idle()
         {
             MoveTo(agentSettings.idleSpeed, _patrolPosition);

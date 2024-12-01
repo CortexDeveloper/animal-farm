@@ -1,6 +1,7 @@
 ﻿using Gameplay.Generic;
 using Gameplay.Level;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Gameplay.Agent
 {
@@ -13,10 +14,21 @@ namespace Gameplay.Agent
         private AgentFactory _agentFactory;
         private PatrolZone _patrolZone;
         
+        private ObjectPool<GameObject> _pool;
+        
         private void Awake()
         {
             _agentFactory = GameplayServiceLocator.Get<AgentFactory>();
             _patrolZone = GameplayServiceLocator.Get<PatrolZone>();
+            
+            _pool = new ObjectPool<GameObject>(
+                createFunc: () => _agentFactory.Create(),
+                actionOnGet: agent => agent.SetActive(true),
+                actionOnRelease: agent => agent.GetComponent<AgentBehaviour>().Deactivate(),
+                actionOnDestroy: Destroy,
+                defaultCapacity: 10,
+                maxSize: 30
+            );
         }
 
         private void Update()
@@ -32,8 +44,8 @@ namespace Gameplay.Agent
 
         private void SpawnAgent()
         {
-            var position = _patrolZone.GetRandomPosition();
-            _agentFactory.Create(position);
+            var agent = _pool.Get();
+            agent.transform.position = _patrolZone.GetRandomPosition();
         }
     }
 }

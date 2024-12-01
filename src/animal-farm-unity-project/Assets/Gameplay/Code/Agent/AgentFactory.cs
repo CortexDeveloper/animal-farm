@@ -8,14 +8,13 @@ namespace Gameplay.Agent
         public Transform agentPrefab;
         public AgentSettings agentSettings;
         
-        public AgentBehaviour Create(Vector3 position)
+        public GameObject Create()
         {
             var agentInstance = Instantiate(agentPrefab);
             var agentBehaviour = agentInstance.GetComponent<AgentBehaviour>();
             agentBehaviour.agentSettings = agentSettings;
-            agentBehaviour.transform.position = position;
             
-            return agentBehaviour;
+            return agentInstance.gameObject;
         }
     }
 }
