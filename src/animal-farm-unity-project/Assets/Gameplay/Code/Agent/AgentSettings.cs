@@ -5,6 +5,7 @@ namespace Gameplay.Agent
     [Serializable]
     public class AgentSettings
     {
-        public float moveSpeed;
+        public float idleSpeed;
+        public float followSpeed;
     }
 }

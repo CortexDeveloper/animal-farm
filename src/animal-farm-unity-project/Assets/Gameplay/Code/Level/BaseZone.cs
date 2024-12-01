@@ -1,5 +1,5 @@
-﻿using System;
-using Gameplay.Agent;
+﻿using Gameplay.Agent;
+using Gameplay.Character;
 using Gameplay.Generic;
 using UnityEngine;
 
@@ -12,10 +12,12 @@ namespace Gameplay.Level
         [SerializeField] private int scorePerAgent;
         
         private GameSession _gameSession;
+        private AgentsGroupLeader _agentsGroupLeader;
 
         private void Awake()
         {
             _gameSession = GameplayServiceLocator.Get<GameSession>();
+            _agentsGroupLeader = GameplayServiceLocator.Get<AgentsGroupLeader>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -28,6 +30,7 @@ namespace Gameplay.Level
         {
             agent.ChangeStateTo(AgentState.Delivered);
             
+            _agentsGroupLeader.ReleaseAgent();
             _gameSession.AddScore(scorePerAgent);
         }
     }
